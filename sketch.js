@@ -1,4 +1,4 @@
-// // bars //
+// bars //
 var driveLevel      = 20;
 var stressLevel     = 20;
 
@@ -9,8 +9,21 @@ var stressInterval;
 var driveInterval;
 var checkLevels;
 
-// // files //
-// var audioBackground = new Audio('audio/audio.m4a');
+// audio files //
+var heartBeat = new Audio('audio/heartBeat.m4a');
+
+var messageSent = new Audio('audio/messageOut.m4a');
+var messageRecieved = new Audio('audio/messageIn.m4a');
+
+var breatheIn = new Audio('audio/breatheIn.m4a');
+var memoryIn = new Audio('audio/memoryIn.m4a');
+
+var sayItAudio = new Audio('audio/sayIt.m4a');
+
+var earRinging = new Audio('audio/earRinging.mp3');
+
+var suspenseMusic = new Audio('audio/suspense.mp3');
+var happyMusic = new Audio('audio/happy.mp3');
 
 $(document).ready(function(){
   //turn subtitles white on hover
@@ -39,6 +52,7 @@ $(document).ready(function(){
 
   //when start is clicked animate phone entering
   $('#startButton').click(function(){
+    heartBeat.play();
     startScreen.setAttribute("style", "opacity: 0;");
     phoneDiv.setAttribute("style", "transform: translateY(0%);");
     currentMemory = 1;
@@ -65,7 +79,17 @@ $(document).ready(function(){
         --driveLevel;
         $("#driveLevel").height(driveLevel);
       }, 600);
-      
+
+      heartBeatInterval = setInterval(function () {
+        $("#phoneDiv").addClass("phoneHighGlow");
+        $("#phoneDiv").removeClass("phoneLowGlow");
+
+        setTimeout(function () {
+          $("#phoneDiv").removeClass("phoneHighGlow");
+          $("#phoneDiv").addClass("phoneLowGlow");
+        }, 1600);
+      }, 1050);
+
       //check levels
       checkLevels = setInterval(function () {
         if (driveLevel<21) {
@@ -191,6 +215,7 @@ function messagesIntro() {
   setTimeout(function () {
     $('#message1').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 0100);
 
   setTimeout(function () {
@@ -201,21 +226,26 @@ function messagesIntro() {
   setTimeout(function () {
     $('#message2').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 3000);
 
   setTimeout(function () {
     $('#message3').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 5000);
 
   setTimeout(function () {
     $('#message4').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 8000);
 
   setTimeout(function () {
     $('#message5').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
+
   }, 10000);
 
   setTimeout(function () {
@@ -243,26 +273,31 @@ function noDrive() {
   setTimeout(function () {
     $('#gameover1').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 1000);
 
   setTimeout(function () {
     $('#gameover2').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 3000);
 
   setTimeout(function () {
     $('#gameover3').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 5000);
 
   setTimeout(function () {
     $('#gameover4').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 7000);
 
   setTimeout(function () {
     $('#gameover5').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 8500);
 
   setTimeout(function () {
@@ -276,9 +311,10 @@ function opacityFun(id, opacity) {
 }
 
 function breatheFun() {
+  breatheIn.play();
   addDrive(-5);
   if (stressLevel > 100) {
-    addStress(-90);
+    addStress(-200);
   }
   opacityFun("#tutorial1", 0);
   setTimeout(function () {
@@ -288,7 +324,6 @@ function breatheFun() {
 
 function memoryFun(memoryNumber) {
   playMemory(memoryNumber);
-
   setTimeout(function () {
     addStress(5);
     if (driveLevel < 500) {
@@ -299,6 +334,7 @@ function memoryFun(memoryNumber) {
 }
 
 function playMemory(memoryNumber) {
+  memoryIn.play();
 
   $('#memory' + memoryNumber).removeClass("hideVideo");
   $('#memory' + memoryNumber).addClass("showVideo");  
@@ -359,6 +395,7 @@ function playMemory(memoryNumber) {
         console.log(currentMemory + "messages");
         $('#memoryButton').click(function(){
           gameWon();
+          sayItAudio.play();
           console.log("game won ran");
           return;
         });
@@ -376,6 +413,7 @@ function messages2() {
   setTimeout(function () {
     $('#message6').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 100);
 }
 
@@ -383,6 +421,7 @@ function messages3() {
   setTimeout(function () {
     $('#message7').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 100);
 }
 
@@ -390,6 +429,7 @@ function messages4() {
   setTimeout(function () {
     $('#message8').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 100);
 }
 
@@ -398,11 +438,13 @@ function messages5() {
   setTimeout(function () {
     $('#message9').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 100);
 
   setTimeout(function () {
     $('#message10').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
   }, 2000);
 }
 
@@ -410,47 +452,104 @@ function gameWonMessages() {
   setTimeout(function () {
     $('#gamewon1').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 100);
 
   setTimeout(function () {
     $('#gamewon2').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 2000);
 
   setTimeout(function () {
     $('#gamewon3').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageRecieved.play();
+    earRinging.play();
   }, 4400);
 
   setTimeout(function () {
     $('#gamewon4').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    messageSent.play();
   }, 7000);
 
   setTimeout(function () {
     $('#gamewon5').removeClass("hiddenMessage");
+    messageRecieved.play();
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+
+    //passout
+    $('#passedOutScreenWon').css("opacity", "0");
+    $('#passedOutScreenWon').addClass("overlayScreen");
+    $('#passedOutScreenWon').removeClass("overlayScreenHidden");
+    setTimeout(function () {
+      $('#passedOutScreenWon').css("opacity", "1");
+    }, 500);
+
+    setTimeout(function () {
+      $('#passedOutScreenWon').css("opacity", "1");
+      phoneDiv.setAttribute("style", "transform: translateY(5%);");
+      //hide bars
+      $('#driveBarContainer').css("display", "none");
+      $('#stressBarContainer').css("display", "none");
+    }, 5800);
+
   }, 9900);
+}
+
+function loveMessageIn() {
+  //come back from passing out
+  $('#passedOutScreenWon').css("opacity", "1");
+  setTimeout(function () {
+    $('#passedOutScreenWon').css("opacity", "0");
+  }, 100);
+  setTimeout(function () {
+    $('#passedOutScreenWon').removeClass("overlayScreen");
+    $('#passedOutScreenWon').addClass("overlayScreenHidden");
+  }, 500);
 }
 
 function endingMessages() {
   setTimeout(function () {
     $('#ending1').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    clearInterval(heartBeatInterval);
+
+    setTimeout(function () {
+      messageRecieved.play();
+    }, 100);
+    setTimeout(function () {
+      $('#notificationIn').removeClass("notificationHide");
+      $('#notificationIn').addClass("notificationShow");
+    }, 400);
+
+    suspenseMusic.pause();
+    heartBeat.pause();
+    earRinging.pause();
   }, 100);
 
   setTimeout(function () {
     $('#ending2').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    $('#phoneDiv').removeClass("phoneFastTransition");
+    $('#phoneDiv').addClass("phoneSlowTransition");
+    phoneDiv.setAttribute("style", "transform: translateY(0%);");
+    loveMessageIn();
+    messageRecieved.play();
   }, 2200);
 
   setTimeout(function () {
     $('#loveText').css("background-color", "#FFC0CB");
     $("#loveText").css("box-shadow","0 5px 20px #ff98c55c");
-
+    messageRecieved.play();
+    happyMusic.play();
     $('#ending3').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
-  }, 4800);
+    setTimeout(function () {
+      pinkScreen();
+    }, 8000);
+  }, 4000);
 }
 
 
@@ -467,6 +566,7 @@ function gameWon() {
   $("#stressLevel").height(stressLevel);
   $("#driveLevel").height(driveLevel);
   //coming out
+  suspenseMusic.play();
   gameWonMessages();
   //shock state
 
@@ -478,10 +578,19 @@ function gameWon() {
 
 }
 
+function pinkScreen() {
+  //slowly reveal pink screen
+  $('#pinkGameWon').css("display", "flex");
+  setTimeout(function () {
+    $('#pinkGameWon').css("opacity", "1");
+  }, 100);
+}
+
 function passedOut() {
   setTimeout(function () {
     $('#message6').removeClass("hiddenMessage");
     $("#messagesZone").scrollTop($("#messagesZone")[0].scrollHeight);
+    earRinging.play();
   }, 100);
 
   setTimeout(function () {
@@ -514,6 +623,8 @@ function passedOut() {
     }, 10);
     setTimeout(function () {
       $('.noOpacity').css("opacity", "1");
+      earRinging.pause();
+      heartBeat.pause();
     }, 5000);
   },1000);
 }

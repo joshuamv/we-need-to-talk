@@ -80,6 +80,73 @@ html, body {
   transition-timing-function: ease-out;
 }
 
+#passedOutScreenWon{
+  background-color: #FFFFFF;
+  transition: 5.5s;
+  transition-timing-function: ease-out;
+}
+
+#pinkGameWon{
+  background-color: #FFDEE4;
+  transition: 5.5s;
+  transition-timing-function: ease-out;
+  display:none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 12;
+  opacity: 0;
+}
+
+#loveTextWon{
+  background-color: #FFC0CB;
+  color: #000000;
+  transition: 2.5s;
+  transition-timing-function: ease-out;
+  box-shadow: 0 5px 20px #ff98c55c;
+}
+
+.momMessageWon{
+  position: absolute;
+  padding: 18px;
+  border-radius: 15px;
+  margin-top: 15px;
+  width:fit-content;
+  max-width: 220px;
+  z-index: 20;
+}
+
+.okTextWonShow{
+  bottom: 10vh;
+  position: absolute;
+  color: #301d20ce;
+  font-style: italic;
+}
+
+.notificationHide{
+  font-family: Everett-bold;
+  display: none;
+  background-color: red;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1000px;
+  box-shadow: 0 3px 10px #00000021;
+  padding: 5px 12px 5px 12px;
+}
+
+.notificationShow{
+  font-family: Everett-bold;
+  display: flex;
+  background-color: red;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1000px;
+  box-shadow: 0 3px 10px #00000021;
+  padding: 5px 12px 5px 12px;
+}
+
 #noDriveScreen{
   background-color: #FFFFFF;
   transition: 6.5s;
@@ -348,8 +415,27 @@ html, body {
   height: 800px;
   margin: 100px 150px 100px 150px;
   padding: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
   transform: translateY(120%);
+}
+
+.phoneFastTransition{
+  transition: 0.6s;
+  transition-timing-function: ease-out;
+}
+
+.phoneSlowTransition{
+  transition: 2.6s;
+  transition-timing-function: ease-out;
+}
+
+.phoneLowGlow {
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transition: 0.6s;
+  transition-timing-function: ease-out;
+}
+
+.phoneHighGlow {
+  box-shadow: 0 15px 100px rgba(97, 1, 1, 0.394);
   transition: 0.6s;
   transition-timing-function: ease-out;
 }
