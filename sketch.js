@@ -12,6 +12,11 @@ var checkLevels;
 // audio files //
 var heartBeat = new Audio('audio/heartBeat.m4a');
 
+heartBeat.addEventListener('ended', function() {
+  this.currentTime = 0;
+  this.play();
+}, false);
+
 var messageSent = new Audio('audio/messageOut.m4a');
 var messageRecieved = new Audio('audio/messageIn.m4a');
 
